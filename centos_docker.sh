@@ -5,6 +5,11 @@ yum makecache fast
 yum -y install docker-ce
 systemctl start docker
 systemctl enable docker
+tee -a /etc/sysctl.conf <<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sysctl -p
 echo "==========================="
 echo "docker run hello-world"
 echo "==========================="
